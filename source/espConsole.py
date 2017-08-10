@@ -1,6 +1,6 @@
-#!/bin/python
+#!/usr/bin/python
 # Program: this shall be a console to communicate via serial line
-# It shall use the readline library that provides a history
+# It shall implement a simple line editing mechanism.
 #
 # Trs  2017-08-09  Creation
 
@@ -13,7 +13,7 @@ def Trace(str):
     sys.stderr.write( str + "\n")
 
 class ReadlineConsole:
-    '''A terminal using the readline library for a character channel.'''
+    '''A terminal-like console for a character channel.'''
     def __init__(self, path):
         if isinstance(path, str):
             Trace("Opening file")
@@ -95,7 +95,6 @@ class ReadlineConsole:
                     if len(r) == 0:
                         self.Prompt()
                         break
-#                Trace("stream!")
 
 
 def StartConsole(fifo):
@@ -109,6 +108,7 @@ def StartConsole(fifo):
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
+        # default: raspberry pi serial port, connected to ESP8266
         with serial.Serial('/dev/serial0', 115200) as fifo:
             StartConsole(fifo)
     else:
